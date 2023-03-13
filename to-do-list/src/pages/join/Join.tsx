@@ -46,7 +46,7 @@ export function Join() {
             color: "#8A2BE2",
           }}
         >
-          <h1>To-Do List</h1>
+          <h1>Welcome!</h1>
         </div>
         <div
           style={{

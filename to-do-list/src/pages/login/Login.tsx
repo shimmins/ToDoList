@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "antd";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export function Login() {
   const [id, setId] = useState("");
@@ -32,7 +32,7 @@ export function Login() {
       <div
         style={{
           width: "40%",
-          margin: "90px",
+          marginTop: "90px",
           borderRadius: "10px",
           backgroundColor: "white",
         }}
@@ -44,7 +44,7 @@ export function Login() {
             color: "#8A2BE2",
           }}
         >
-          <h1>To-Do List</h1>
+          <h1>Login</h1>
         </div>
         <div
           style={{
@@ -112,6 +112,36 @@ export function Login() {
               Login
             </Button>
           </div>
+        </div>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: "15px",
+          width: "40%",
+          height: "12%",
+          borderRadius: "10px",
+          backgroundColor: "white",
+        }}
+      >
+        <div
+          style={{
+            width: "55%",
+            color: "gray",
+          }}
+        >
+          계정이 없으신가요?
+          <Link
+            style={{
+              color: "#8A2BE2",
+            }}
+            to={"/join"}
+          >
+            가입하기
+          </Link>
         </div>
       </div>
     </div>
