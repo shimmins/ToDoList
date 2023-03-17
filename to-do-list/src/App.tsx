@@ -1,4 +1,4 @@
-import { Home, Login, Join } from "./pages";
+import { Home, Login, Join, Test, Mypage } from "./pages";
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -15,6 +15,14 @@ function App() {
     {
       path: "/home",
       element: <Home />,
+    },
+    {
+      path: "/mypage",
+      element: <Mypage />,
+    },
+    {
+      path: "/test",
+      element: <Test />,
     },
   ]);
 

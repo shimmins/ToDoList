@@ -70,7 +70,7 @@ export function Home() {
           }}
         >
           <Link
-            to={"/login"}
+            to={"/mypage"}
             style={{
               display: "flex",
               justifyContent: "center",
@@ -78,7 +78,7 @@ export function Home() {
               textDecorationLine: "none",
             }}
           >
-            Home
+            My Page
           </Link>
         </div>
         <div style={wrapperStyle}>

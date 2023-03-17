@@ -15,7 +15,7 @@ export function Login() {
   const onLogin = () => {
     const check = localStorage.getItem(id);
     if (check === password) {
-      navigate("/home");
+      navigate("/mypage", { state: { id: password } });
     } else alert("입력한 정보를 다시 확인해주세요.");
   };
   return (
