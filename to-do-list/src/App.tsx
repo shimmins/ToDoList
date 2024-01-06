@@ -13,7 +13,7 @@ function App() {
       element: <Join />,
     },
     {
-      path: "/home",
+      path: "/",
       element: <Home />,
     },
     {

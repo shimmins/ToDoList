@@ -1,0 +1,31 @@
+.joinLayout {
+  display: "flex";
+  flex-direction: "column";
+  align-items: "center";
+  background-color: "	#E6E6FA";
+  height: "100vh";
+  width: "100%";
+}
+
+.joinContainer {
+  width: "40%";
+  margin: "90px";
+  border-radius: "10px";
+  background-color: "white";
+}
+
+.joinForm {
+  background-color: "#E6E6FA";
+  height: "30px";
+  width: "60%";
+  border: "none";
+  border-radius: "10px";
+  margin: "5px";
+}
+
+.joinFont {
+  display: "flex";
+  justify-content: "flex-start";
+  width: "55%";
+  color: "gray";
+}
