@@ -5,6 +5,8 @@ import type { Dayjs } from "dayjs";
 import { PlusOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 
+import Axios from "axios";
+
 interface todo {
   number: number;
   content: String;
@@ -28,7 +30,17 @@ export function Home() {
     setContent("");
     setNum(num + 1);
     //localStorage.setItem("todo", todo)
+
+    Axios.get("http://localhost:8000/", {})
+      .then((res) => {
+        const { data } = res;
+        console.log(data);
+      })
+      .catch((e: Error) => {
+        console.error(e);
+      });
   };
+
   const onRemove = (number: number) => {
     console.log("삭제되었습니다", number);
     setList(
