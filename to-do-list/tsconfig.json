@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "types": ["@emotion/react/types/css-prop", "node"],
+    "types": ["node"],
     "target": "es5",
     "module": "commonjs",
     "jsx": "preserve",
