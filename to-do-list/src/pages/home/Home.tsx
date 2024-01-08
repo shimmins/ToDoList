@@ -1,5 +1,5 @@
 import { Button, Calendar, theme, Tooltip } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import type { CalendarMode } from "antd/es/calendar/generateCalendar";
 import type { Dayjs } from "dayjs";
 import { PlusOutlined } from "@ant-design/icons";
@@ -7,45 +7,69 @@ import { Link } from "react-router-dom";
 
 import Axios from "axios";
 
-interface todo {
-  number: number;
-  content: String;
-  check: boolean;
+interface Todo {
+  TODO_ID: number;
+  TODO_CONTENT: String;
+  TODO_CHECK: boolean;
 }
+
 export function Home() {
   const [num, setNum] = useState(0); //localStrorage에서 번호 불러오기
   const [content, setContent] = useState("");
-  const [list, setList] = useState<todo[]>([]);
+  const [list, setList] = useState<Todo[]>([]);
   const onContent = (event: React.ChangeEvent<HTMLInputElement>) => {
     setContent(event.target.value);
   };
-  const onAdd = () => {
-    //할일 추가하기
-    const todo = {
-      number: num,
-      content: content,
-      check: false,
-    };
-    setList([...list, todo]);
-    setContent("");
-    setNum(num + 1);
-    //localStorage.setItem("todo", todo)
 
-    Axios.get("http://localhost:8000/", {})
+  useEffect(() => {
+    Axios.get<Todo[]>("http://localhost:8000/home")
       .then((res) => {
         const { data } = res;
-        console.log(data);
+        console.log("Data received:", data);
+
+        const formattedData = data.map((todo) => ({
+          TODO_ID: todo.TODO_ID,
+          TODO_CONTENT: todo.TODO_CONTENT,
+          TODO_CHECK: todo.TODO_CHECK,
+        }));
+
+        setList(formattedData);
+        setContent("");
+
+        console.log(list);
       })
       .catch((e: Error) => {
         console.error(e);
       });
+  }, []);
+
+  const onAdd = () => {
+    //할일 추가하기
+    const todo = {
+      TODO_ID: num,
+      TODO_CONTENT: content,
+      TODO_CHECK: false,
+    };
+
+    console.log(todo.TODO_CONTENT)
+    Axios.post("http://localhost:8000/home", { todo: todo.TODO_CONTENT })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((e: Error) => {
+        console.error(e);
+      });
+
+    setList([...list, todo]);
+    setContent("");
+    setNum(num + 1);
   };
 
   const onRemove = (number: number) => {
     console.log("삭제되었습니다", number);
     setList(
       list.filter((todo) => {
-        if (todo.number === number) return false;
+        if (todo.TODO_ID === number) return false;
         else return true;
       })
     );
@@ -65,12 +89,13 @@ export function Home() {
       style={{
         display: "flex",
         flexDirection: "row",
+        justifyContent: "center",
         backgroundColor: "#E6E6FA",
         height: "100vh",
         width: "100%",
       }}
     >
-      <div style={{ marginTop: "35px", marginLeft: "35px" }}>
+      <div style={{ margin: "50px 35px 0 0" }}>
         <div
           style={{
             marginLeft: "50px",
@@ -103,7 +128,7 @@ export function Home() {
           backgroundColor: "white",
           margin: "30px",
           width: "70%",
-          height: "80%",
+          height: "90%",
         }}
       >
         <div
@@ -166,13 +191,14 @@ export function Home() {
                     border: "3px solid gray",
                     position: "relative",
                   }}
+                  key={todo.TODO_ID}
                   onClick={() => {
                     const newList = list.map((item) => {
-                      if (todo.number === item.number) {
+                      if (todo.TODO_ID === item.TODO_ID) {
                         const newItem = {
-                          number: item.number,
-                          content: item.content,
-                          check: !item.check,
+                          TODO_ID: item.TODO_ID,
+                          TODO_CONTENT: item.TODO_CONTENT,
+                          TODO_CHECK: !item.TODO_CHECK,
                         };
                         return newItem;
                       } else {
@@ -188,10 +214,10 @@ export function Home() {
                   style={{
                     width: "60%",
                     borderBottom: "solid 2px gray",
-                    textDecoration: todo.check ? "line-through" : "none",
+                    textDecoration: todo.TODO_CHECK ? "line-through" : "none",
                   }}
                 >
-                  {todo.content}
+                  {todo.TODO_CONTENT}
                 </div>
                 <button
                   style={{
@@ -201,7 +227,7 @@ export function Home() {
                     cursor: "pointer",
                   }}
                   onClick={() => {
-                    onRemove(todo.number);
+                    onRemove(todo.TODO_ID);
                   }}
                 >
                   X

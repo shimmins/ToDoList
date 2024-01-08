@@ -1,28 +1,24 @@
-import { Home, Login, Join, Test, Mypage } from "./pages";
+import { Home, Login, Join, Logout } from "./pages";
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 function App() {
   const router = createBrowserRouter([
     {
+      path: "/",
+      element: <Join />,
+    },
+    {
       path: "/login",
       element: <Login />,
     },
     {
-      path: "/join",
-      element: <Join />,
+      path: "/logout",
+      element: <Logout />,
     },
     {
-      path: "/",
+      path: "/home",
       element: <Home />,
-    },
-    {
-      path: "/mypage",
-      element: <Mypage />,
-    },
-    {
-      path: "/test",
-      element: <Test />,
     },
   ]);
 

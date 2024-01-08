@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "antd";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export function Login() {
   const [id, setId] = useState("");
@@ -22,126 +22,154 @@ export function Login() {
     <div
       style={{
         display: "flex",
-        flexDirection: "column",
+        flexDirection: "row",
+        justifyContent: "center",
         alignItems: "center",
         backgroundColor: "	#E6E6FA",
         height: "100vh",
         width: "100%",
       }}
     >
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <img
+          alt="DOIT_LOGO.png"
+          src="./DOIT_LOGO.png"
+          style={{ width: "250px", height: "400px" }}
+        ></img>
+      </div>
       <div
         style={{
-          width: "40%",
-          marginTop: "90px",
-          borderRadius: "10px",
-          backgroundColor: "white",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "60%",
         }}
       >
         <div
           style={{
             display: "flex",
-            justifyContent: "center",
-            color: "#8A2BE2",
-          }}
-        >
-          <h1>Login</h1>
-        </div>
-        <div
-          style={{
-            display: "flex",
             flexDirection: "column",
-            alignItems: "center",
-            margin: "20px",
+            justifyContent: "center",
+            width: "80%",
+            backgroundColor: "white",
+            borderRadius: "10px",
           }}
         >
           <div
             style={{
               display: "flex",
-              justifyContent: "flex-start",
-              width: "55%",
-              color: "gray",
+              justifyContent: "center",
+              color: "#8A2BE2",
+              marginTop: "10px",
             }}
           >
-            UserID
+            <h1 style={{ fontSize: "40px" }}>Login</h1>
           </div>
-          <input
-            style={{
-              backgroundColor: "#E6E6FA",
-              height: "30px",
-              width: "60%",
-              border: "none",
-              borderRadius: "10px",
-              margin: "5px",
-            }}
-            value={id}
-            onChange={onId}
-            type="text"
-          />
           <div
             style={{
               display: "flex",
-              justifyContent: "flex-start",
-              width: "55%",
-              color: "gray",
+              flexDirection: "column",
+              alignItems: "center",
+              margin: "20px 0 30px 0",
             }}
           >
-            UserPassword
-          </div>
-          <input
-            style={{
-              backgroundColor: "#E6E6FA",
-              height: "30px",
-              width: "60%",
-              border: "none",
-              borderRadius: "10px",
-              margin: "5px",
-            }}
-            value={password}
-            onChange={onPassword}
-            type="text"
-          />
-          <div style={{ width: "100px" }}>
-            <br></br>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-start",
+                width: "55%",
+                color: "gray",
+              }}
+            >
+              UserID
+            </div>
+            <input
+              style={{
+                backgroundColor: "#E6E6FA",
+                height: "30px",
+                width: "59%",
+                border: "none",
+                borderRadius: "10px",
+                margin: "5px",
+                paddingLeft: "15px",
+              }}
+              value={id}
+              onChange={onId}
+              type="text"
+            />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-start",
+                width: "55%",
+                color: "gray",
+              }}
+            >
+              UserPassword
+            </div>
+            <input
+              style={{
+                backgroundColor: "#E6E6FA",
+                height: "30px",
+                width: "59%",
+                border: "none",
+                borderRadius: "10px",
+                margin: "5px",
+                paddingLeft: "15px",
+              }}
+              value={password}
+              onChange={onPassword}
+              type="text"
+            />
             <Button
-              style={{ backgroundColor: "#8A2BE2" }}
+              style={{
+                marginTop: "30PX",
+                backgroundColor: "#8A2BE2",
+                width: "60%",
+              }}
               size={"large"}
               onClick={onLogin}
               type="primary"
-              block
             >
               Login
             </Button>
           </div>
         </div>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: "15px",
-          width: "40%",
-          height: "12%",
-          borderRadius: "10px",
-          backgroundColor: "white",
-        }}
-      >
         <div
           style={{
-            width: "55%",
-            color: "gray",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: "15px",
+            width: "80%",
+            height: "80px",
+            backgroundColor: "white",
+            borderRadius: "10px",
           }}
         >
-          계정이 없으신가요?
-          <Link
+          <div
             style={{
-              color: "#8A2BE2",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-around",
+              width: "45%",
+              color: "gray",
             }}
-            to={"/join"}
           >
-            가입하기
-          </Link>
+            계정이 없으신가요?
+            <div
+              style={{
+                marginRight: "20px",
+                color: "#8A2BE2",
+                cursor: "pointer",
+              }}
+              onClick={() => navigate("/")}
+            >
+              가입하기
+            </div>
+          </div>
         </div>
       </div>
     </div>
