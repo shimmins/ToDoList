@@ -23,20 +23,26 @@ app.get("/", (req, res) => {
 });
 
 app.get("/home", (req, res) => {
-  const sqlQuery = "SELECT * FROM db.TODOLIST;";
+  const sqlQuery = "SELECT * FROM TODOLIST;";
   db.query(sqlQuery, (err, result) => {
     res.send(result);
+    console.log(result)
   });
 });
 
+var bodyParser = require("body-parser")
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
 //todo
 app.post("/home", (req, res) => {
-  const todo = req.body;
+  const todo = req.body.todo;
   console.log(todo);
   const sqlQuery =
-    "INSERT INTO TODOLIST(TODO_CONTENT, TODO_CHECK) VALUES (?, 0);";
+    "INSERT INTO TODOLIST(TODO_CONTENT, TODO_CHECK) VALUES (?, false);";
 
-  db.query(sqlQuery, [todo.content], (err, result) => {
+  db.query(sqlQuery, [todo], (err, result) => {
     if (err) console.log(err);
     else res.send(result);
   });
