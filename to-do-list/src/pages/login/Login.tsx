@@ -1,11 +1,18 @@
 import React, { useState } from "react";
 import { Button } from "antd";
 import { useNavigate } from "react-router-dom";
+import Axios from "axios";
 
+interface User {
+  USER_NAME: String;
+  USER_ID: String;
+  USER_PASSWORD: String;
+}
 export function Login() {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+
   const onId = (event: React.ChangeEvent<HTMLInputElement>) => {
     setId(event.target.value);
   };
@@ -13,10 +20,20 @@ export function Login() {
     setPassword(event.target.value);
   };
   const onLogin = () => {
-    const check = localStorage.getItem(id);
-    if (check === password) {
-      navigate("/mypage", { state: { id: password } });
-    } else alert("입력한 정보를 다시 확인해주세요.");
+    Axios.post<User[]>("http://localhost:8000/login", { id: id })
+      .then((res) => {
+        const userData = res.data[0];
+        const userPassword = userData.USER_PASSWORD;
+        
+        if (password === userPassword) {
+          navigate("/home");
+        } else alert("비밀번호가 틀렸습니다.");
+      })
+      .catch((e: Error) => {
+        //아이디가 없는 경우
+        console.error(e);
+        alert("존재하지 않는 회원입니다.");
+      });
   };
   return (
     <div

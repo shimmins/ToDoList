@@ -2,6 +2,14 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "antd";
 
+import Axios from "axios";
+
+interface User {
+  USER_NAME: String;
+  USER_ID: String;
+  USER_PASSWORD: String;
+}
+
 export function Join() {
   const [name, setName] = useState("");
   const [id, setId] = useState("");
@@ -20,8 +28,20 @@ export function Join() {
   const navigate = useNavigate();
 
   const onSubmit = () => {
-    localStorage.setItem(id, password);
-    navigate("../login");
+    const user: User = {
+      USER_NAME: name,
+      USER_ID: id,
+      USER_PASSWORD: password,
+    };
+
+    Axios.post("http://localhost:8000/", { user: user })
+      .then((res) => {
+        console.log(res)
+        navigate("/login");
+      })
+      .catch((e: Error) => {
+        console.error(e);
+      });
   };
 
   return (

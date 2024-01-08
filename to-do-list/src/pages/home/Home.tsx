@@ -44,14 +44,13 @@ export function Home() {
   }, []);
 
   const onAdd = () => {
-    //할일 추가하기
     const todo = {
       TODO_ID: num,
       TODO_CONTENT: content,
       TODO_CHECK: false,
     };
 
-    console.log(todo.TODO_CONTENT)
+    console.log(todo.TODO_CONTENT);
     Axios.post("http://localhost:8000/home", { todo: todo.TODO_CONTENT })
       .then((res) => {
         console.log(res.data);
@@ -65,16 +64,24 @@ export function Home() {
     setNum(num + 1);
   };
 
-  const onRemove = (number: number) => {
-    console.log("삭제되었습니다", number);
+  const onRemove = (id: number) => {
+    Axios.delete(`http://localhost:8000/delete/?id=${id}`)
+      .then((res: any) => {
+        console.log(res);
+      })
+      .catch((err: any) => {
+        console.log(err);
+      });
+
     setList(
       list.filter((todo) => {
-        if (todo.TODO_ID === number) return false;
+        if (todo.TODO_ID === id) return false;
         else return true;
       })
     );
     setNum(num - 1);
   };
+
   const onPanelChange = (value: Dayjs, mode: CalendarMode) => {
     console.log(value.format("YYYY-MM-DD"), mode);
   };
@@ -155,6 +162,8 @@ export function Home() {
               width: "60%",
               border: "solid 2px #8A2BE2",
               margin: "5px",
+              outline: "none",
+              paddingLeft: "10px",
             }}
             placeholder="할 일 등록하기"
             value={content}
@@ -163,7 +172,7 @@ export function Home() {
           />
           <Tooltip title="Add">
             <Button
-              style={{ backgroundColor: "#8A2BE2", marginTop: "10px" }}
+              style={{ backgroundColor: "#8A2BE2", margin: "10px 0 10px 10px" }}
               onClick={onAdd}
               type="primary"
               icon={<PlusOutlined />}
