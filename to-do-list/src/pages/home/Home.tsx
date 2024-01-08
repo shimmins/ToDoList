@@ -25,7 +25,7 @@ export function Home() {
     Axios.get<Todo[]>("http://localhost:8000/home")
       .then((res) => {
         const { data } = res;
-        console.log("Data received:", data);
+        //console.log("Data received:", data);
 
         const formattedData = data.map((todo) => ({
           TODO_ID: todo.TODO_ID,
@@ -35,8 +35,6 @@ export function Home() {
 
         setList(formattedData);
         setContent("");
-
-        console.log(list);
       })
       .catch((e: Error) => {
         console.error(e);
@@ -65,7 +63,7 @@ export function Home() {
   };
 
   const onRemove = (id: number) => {
-    Axios.delete(`http://localhost:8000/delete/?id=${id}`)
+    Axios.delete("http://localhost:8000/delete", { data: { id: id }})
       .then((res: any) => {
         console.log(res);
       })

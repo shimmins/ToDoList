@@ -73,7 +73,7 @@ app.post("/", (req, res) => {
 });
 
 //delete
-app.delete("/delete/", (req, res) => {
+app.delete("/delete", (req, res) => {
   const id = req.body.id;
   console.log(id);
 
