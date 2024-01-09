@@ -1,0 +1,28 @@
+version: '2'
+services:
+  backend:
+    build: ./db-server
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mysql
+    container_name: todo-server
+  mysql:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: db_server
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: soldesk1.
+    volumes:
+      - ./db-server/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  frontend:
+    build: ./to-do-list
+    ports:
+      - "3000:3000"
+    container_name: todo-front
+    depends_on:
+      - backend
