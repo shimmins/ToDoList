@@ -20,7 +20,7 @@ export function Login() {
     setPassword(event.target.value);
   };
   const onLogin = () => {
-    Axios.post<User[]>("http://localhost:8000/login", { id: id })
+    Axios.post<User[]>("http://back-mychart:8000/login", { id: id })
       .then((res) => {
         const userData = res.data[0];
         const userPassword = userData.USER_PASSWORD;
