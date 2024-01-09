@@ -34,7 +34,7 @@ export function Join() {
       USER_PASSWORD: password,
     };
 
-    Axios.post("/api/", { user: user })
+    Axios.post("/", { user: user })
       .then((res) => {
         console.log(res);
         navigate("/login");

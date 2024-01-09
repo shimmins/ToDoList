@@ -20,7 +20,7 @@ export function Login() {
     setPassword(event.target.value);
   };
   const onLogin = () => {
-    Axios.post<User[]>("/api/login", { id: id })
+    Axios.post<User[]>("/login", { id: id })
       .then((res) => {
         const userData = res.data[0];
         const userPassword = userData.USER_PASSWORD;
