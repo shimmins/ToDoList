@@ -3,10 +3,9 @@ pipeline {
     
     environment {
         registry = "035574589515.dkr.ecr.us-east-2.amazonaws.com/yudeng_jenkins"
-        toDoListImage = "${registry}:todolist-${BUILD_NUMBER}"
-        dbServerImage = "${registry}:dbserver-${BUILD_NUMBER}"
     }
 
+    
     stages {
         stage('Checkout') {
             steps {
@@ -14,17 +13,13 @@ pipeline {
             }
         }
         
-        stage("Build ToDoList Image") {
+        stage("Build") {
             steps {
                 dir('/var/lib/jenkins/workspace/jenkins/to-do-list') {
                     sh 'npm install'
                     sh 'npm run build'
                 }
-            }
-        }
-
-        stage("Build DBServer Image") {
-            steps {
+        
                 dir('/var/lib/jenkins/workspace/jenkins/db-server') {
                     sh 'npm install'
                     sh 'npm run build'
@@ -32,37 +27,32 @@ pipeline {
             }
         }
         
-        stage("Push ToDoList Image to ECR") {
+        stage("Build Image") {
             steps {
                 script {
                     sh '''
-                        docker build -t ${toDoListImage} /var/lib/jenkins/workspace/jenkins/to-do-list
-                        aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 035574589515.dkr.ecr.us-east-2.amazonaws.com
-                        docker push ${toDoListImage}
+                        docker build -t 035574589515.dkr.ecr.us-east-2.amazonaws.com/yudeng_jenkins:$BUILD_NUMBER .
                     '''
                 }
             }
         }
-
-        stage("Push DBServer Image to ECR") {
+        
+        stage("Push Image to ECR") {
             steps {
                 script {
                     sh '''
-                        docker build -t ${dbServerImage} /var/lib/jenkins/workspace/jenkins/db-server
                         aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 035574589515.dkr.ecr.us-east-2.amazonaws.com
-                        docker push ${dbServerImage}
+                        docker push 035574589515.dkr.ecr.us-east-2.amazonaws.com/yudeng_jenkins:$BUILD_NUMBER
                     '''
                 }
             }
         }
-
+        
         stage('Invoke Sub Pipeline') {
             steps {
                 build job: 'jenkins-sub-pipeline', parameters: [
-                    string(name: 'TO_DO_LIST_VERSION', value: "${BUILD_NUMBER}"),
-                    string(name: 'DB_SERVER_VERSION', value: "${BUILD_NUMBER}")
+                    string(name: 'VERSION', value: "${BUILD_NUMBER}")
                 ]
             }
         }
     }
-}
