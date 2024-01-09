@@ -8,24 +8,16 @@ pipeline {
     }
 
     stages {
-        steps {
-            script {
-                try {
-                    checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/TirTir/ToDoList']])
-                } catch (Exception e) {
-                    currentBuild.result = 'FAILURE'
-                    echo "Failed to checkout source code: ${e.message}"
-                    error "Aborting the pipeline due to checkout failure."
-                }
+        stage('Checkout') {
+            steps {
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/TirTir/ToDoList']])
             }
         }
         
         stage("Build ToDoList Image") {
             steps {
-                dir('/var/lib/jenkins/workspace/jenkins/to-do-list') {
-                    sh 'npm install'
-                    sh 'npm run build'
-                }
+                sh 'npm install'
+                sh 'npm run build'
             }
         }
 
