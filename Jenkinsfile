@@ -14,15 +14,10 @@ pipeline {
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/TirTir/ToDoList']])
             }
         }
-        
+
         stage("Build") {
             steps {
                 dir('/var/lib/jenkins/workspace/jenkins/to-do-list') {
-                    sh 'npm install'
-                    sh 'npm run build'
-                }
-        
-                dir('/var/lib/jenkins/workspace/jenkins/db-server') {
                     sh 'npm install'
                     sh 'npm run build'
                 }
