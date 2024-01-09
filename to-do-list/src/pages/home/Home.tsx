@@ -22,7 +22,7 @@ export function Home() {
   };
 
   useEffect(() => {
-    Axios.get<Todo[]>("/home")
+    Axios.get<Todo[]>("/api/home")
       .then((res) => {
         const { data } = res;
         //console.log("Data received:", data);
@@ -49,7 +49,7 @@ export function Home() {
     };
 
     console.log(todo.TODO_CONTENT);
-    Axios.post("/home", { todo: todo.TODO_CONTENT })
+    Axios.post("/api/home", { todo: todo.TODO_CONTENT })
       .then((res) => {
         console.log(res.data);
       })
