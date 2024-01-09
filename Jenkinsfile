@@ -15,11 +15,6 @@ pipeline {
         
         stage("Build") {
             steps {
-                sh "cd to-do-list"
-                sh "npm install"
-                sh "npm run build"
-                sh "cd .."
-                sh "cd db-server"
                 sh "npm install"
                 sh "npm run build"
             }
