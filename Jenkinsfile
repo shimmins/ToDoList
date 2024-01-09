@@ -16,7 +16,6 @@ pipeline {
         stage("Build") {
             steps {
                 dir('/var/lib/jenkins/workspace/jenkins/to-do-list') {
-                    sh 'npm init'
                     sh 'npm install'
                     sh 'npm run build'
                 }
