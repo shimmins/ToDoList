@@ -14,7 +14,7 @@ interface Todo {
 }
 
 export function Home() {
-  const [num, setNum] = useState(0); //localStrorage에서 번호 불러오기
+  const [num, setNum] = useState(0);
   const [content, setContent] = useState("");
   const [list, setList] = useState<Todo[]>([]);
   const onContent = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,7 +22,7 @@ export function Home() {
   };
 
   useEffect(() => {
-    Axios.get<Todo[]>("http://localhost:8000/home")
+    Axios.get<Todo[]>("http://back-mychart:8000/home")
       .then((res) => {
         const { data } = res;
         //console.log("Data received:", data);
