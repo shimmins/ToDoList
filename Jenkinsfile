@@ -59,6 +59,13 @@ pipeline {
             steps {
                 build job: 'jenkins-sub-pipeline', parameters: [
                     string(name: 'TO_DO_LIST_VERSION', value: "${BUILD_NUMBER}"),
+                ]
+            }
+        }
+
+        stage('Invoke Sub2 Pipeline') {
+            steps {
+                build job: 'jenkins-sub2-pipeline', parameters: [
                     string(name: 'DB_SERVER_VERSION', value: "${BUILD_NUMBER}")
                 ]
             }
