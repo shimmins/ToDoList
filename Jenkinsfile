@@ -15,11 +15,15 @@ pipeline {
         
         stage("Build") {
             steps {
-                sh "npm install /var/lib/jenkins/workspace/jenkins/to-do-list"
-                sh "npm run build"
-
-                sh "npm install /var/lib/jenkins/workspace/jenkins/db-server"
-                sh "npm run build"
+                dir('/var/lib/jenkins/workspace/jenkins/to-do-list') {
+                    sh 'npm install'
+                    sh 'npm run build'
+                }
+        
+                dir('/var/lib/jenkins/workspace/jenkins/db-server') {
+                    sh 'npm install'
+                    sh 'npm run build'
+                }
             }
         }
         
