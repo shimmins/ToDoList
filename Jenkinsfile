@@ -8,9 +8,15 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/TirTir/ToDoList']])
+        steps {
+            script {
+                try {
+                    checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/TirTir/ToDoList']])
+                } catch (Exception e) {
+                    currentBuild.result = 'FAILURE'
+                    echo "Failed to checkout source code: ${e.message}"
+                    error "Aborting the pipeline due to checkout failure."
+                }
             }
         }
         
