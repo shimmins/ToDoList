@@ -1,5 +1,3 @@
-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
-
 pipeline {
     agent any
     
