@@ -22,7 +22,6 @@ pipeline {
         
                 dir('/var/lib/jenkins/workspace/main/db-server') {
                     sh 'npm install'
-                    sh 'npm run build'
                 }
             }
         }
