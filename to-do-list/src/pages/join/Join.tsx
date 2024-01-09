@@ -34,9 +34,9 @@ export function Join() {
       USER_PASSWORD: password,
     };
 
-    Axios.post("http://back-mychart:8000/", { user: user })
+    Axios.post("/api/", { user: user })
       .then((res) => {
-        console.log(res)
+        console.log(res);
         navigate("/login");
       })
       .catch((e: Error) => {
