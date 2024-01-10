@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     environment {
-        registry = "035574589515.dkr.ecr.us-east-2.amazonaws.com/yudeng_jenkins"
+        registry = "852524605641.dkr.ecr.us-east-2.amazonaws.com/jenkins_project"
         toDoListImage = "${registry}:todolist-${BUILD_NUMBER}"
         dbServerImage = "${registry}:dbserver-${BUILD_NUMBER}"
     }
@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/TirTir/ToDoList']])
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/shimmins/ToDoList']])
             }
         }
         
@@ -36,7 +36,7 @@ pipeline {
                 script {
                     sh '''
                         docker build -t ${toDoListImage} /var/lib/jenkins/workspace/main/to-do-list
-                        aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 035574589515.dkr.ecr.us-east-2.amazonaws.com
+                        aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 852524605641.dkr.ecr.us-east-2.amazonaws.com
                         docker push ${toDoListImage}
                     '''
                 }
@@ -48,7 +48,7 @@ pipeline {
                 script {
                     sh '''
                         docker build -t ${dbServerImage} /var/lib/jenkins/workspace/main/db-server
-                        aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 035574589515.dkr.ecr.us-east-2.amazonaws.com
+                        aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 852524605641.dkr.ecr.us-east-2.amazonaws.com
                         docker push ${dbServerImage}
                     '''
                 }
