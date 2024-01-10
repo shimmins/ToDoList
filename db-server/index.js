@@ -18,7 +18,7 @@ var db = mysql.createPool({
   database: "db_server",
 });
 
-app.get("/api/home", (req, res) => {
+app.get("/home", (req, res) => {
   const sqlQuery = "SELECT * FROM TODOLIST;";
   db.query(sqlQuery, (err, result) => {
     res.send(result);
@@ -32,7 +32,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //todo
-app.post("/api/home", (req, res) => {
+app.post("/home", (req, res) => {
   const todo = req.body.todo;
   console.log(todo);
 
@@ -46,7 +46,7 @@ app.post("/api/home", (req, res) => {
 });
 
 //login
-app.post("/api/login", (req, res) => {
+app.post("/login", (req, res) => {
   const id = req.body.id;
   console.log(id);
 
@@ -59,7 +59,7 @@ app.post("/api/login", (req, res) => {
 });
 
 //join
-app.post("/api/", (req, res) => {
+app.post("/", (req, res) => {
   const name = req.body.user.USER_NAME;
   const id = req.body.user.USER_ID;
   const password = req.body.user.USER_PASSWORD;
@@ -73,7 +73,7 @@ app.post("/api/", (req, res) => {
 });
 
 //delete
-app.delete("/api/delete", (req, res) => {
+app.delete("/delete", (req, res) => {
   const id = req.body.id;
   console.log(id);
 
