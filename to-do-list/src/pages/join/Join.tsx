@@ -51,7 +51,7 @@ export function Join() {
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "	#E6E6FA",
+        backgroundColor: "	black",
         height: "100vh",
         width: "100%",
       }}
